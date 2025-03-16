@@ -17,7 +17,7 @@ class AgentState(TypedDict):
 
 # Initialize Ollama model and search tool
 model = OllamaLLM(model="llama3.1", base_url="http://localhost:11434")
-search_tool = SerpAPIWrapper(serpapi_api_key=os.getenv('serp_api_key')) # used senthilkumar.rf for serpapi
+search_tool = SerpAPIWrapper(serpapi_api_key=os.getenv('serp_api_key'), search_engine="google_news") # Configure SerpAPI to use Google News
 
 # Create workflow graph
 workflow = StateGraph(AgentState)
@@ -28,7 +28,7 @@ def get_news(state: AgentState) -> AgentState:
     
     # Search for latest news
     search_results = search_tool.run("latest news headlines today in india and chennai")
-    
+    print(search_results)
     # Have the model summarize the search results
     prompt = f"Please summarize these news headlines in a concise format, with each headline on a new line: {search_results}"
     response = model.invoke(prompt)
