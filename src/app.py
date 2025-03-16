@@ -1,8 +1,14 @@
 from langchain_core.messages import HumanMessage
 from langgraph.graph import StateGraph
-from langchain_community.llms import Ollama
-from langchain_community.tools import DuckDuckGoSearchRun
+#from langchain_community.llms import Ollama
+from langchain_ollama import OllamaLLM
+from langchain_community.utilities import SerpAPIWrapper
 from typing import Dict, TypedDict
+from dotenv import load_dotenv
+import os
+
+# Load environment variables
+load_dotenv()
 
 # Define state schema
 class AgentState(TypedDict):
@@ -10,8 +16,8 @@ class AgentState(TypedDict):
     next: str
 
 # Initialize Ollama model and search tool
-model = Ollama(model="gemma3:1b", base_url="http://localhost:11434")
-search_tool = DuckDuckGoSearchRun()
+model = OllamaLLM(model="llama3.1", base_url="http://localhost:11434")
+search_tool = SerpAPIWrapper(serpapi_api_key=os.getenv('serp_api_key')) # used senthilkumar.rf for serpapi
 
 # Create workflow graph
 workflow = StateGraph(AgentState)
@@ -24,7 +30,7 @@ def get_news(state: AgentState) -> AgentState:
     search_results = search_tool.run("latest news headlines today in india and chennai")
     
     # Have the model summarize the search results
-    prompt = f"Please summarize these news headlines in a concise format: {search_results}"
+    prompt = f"Please summarize these news headlines in a concise format, with each headline on a new line: {search_results}"
     response = model.invoke(prompt)
     
     messages.append(HumanMessage(content=response))
@@ -69,17 +75,28 @@ with open('index.html', 'w') as f:
             padding-bottom: 10px;
         }
         p {
-            background: white;
             padding: 15px;
             margin: 10px 0;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             line-height: 1.6;
         }
+        p:nth-child(1) {
+            background: #e8f4f8;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        p:nth-child(2n) {
+            background: #fff3e6;
+        }
+        p:nth-child(2n+3) {
+            background: #e6ffe6;
+        }
         .timestamp {
             color: #7f8c8d;
             font-size: 0.8em;
             text-align: right;
+            background: white !important;
         }
     </style>
 </head>
@@ -91,8 +108,10 @@ with open('index.html', 'w') as f:
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     
     for message in result["messages"]:
-        f.write(f'    <p>{message.content}</p>\n')
+        # Split content by newlines and create paragraph for each line
+        for line in message.content.split('\n'):
+            if line.strip():  # Only create paragraph for non-empty lines
+                f.write(f'    <p>{line.strip()}</p>\n')
     
     f.write(f'    <p class="timestamp">Last updated: {current_time}</p>\n')
     f.write('</body>\n</html>')
-

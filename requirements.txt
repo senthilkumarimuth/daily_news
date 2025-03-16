@@ -2,5 +2,6 @@ langgraph
 langsmith
 langchain_anthropic
 langchain_community
-duckduckgo-search
 langchain-ollama
+google-search-results
+python-dotenv
