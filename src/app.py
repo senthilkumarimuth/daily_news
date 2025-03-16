@@ -95,3 +95,4 @@ with open('index.html', 'w') as f:
     
     f.write(f'    <p class="timestamp">Last updated: {current_time}</p>\n')
     f.write('</body>\n</html>')
+
