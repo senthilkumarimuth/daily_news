@@ -6,6 +6,7 @@ from langchain_community.utilities import SerpAPIWrapper
 from typing import Dict, TypedDict
 from dotenv import load_dotenv
 import os
+from custom_dirs import RootDirectory
 
 # Load environment variables
 load_dotenv()
@@ -55,7 +56,7 @@ for message in result["messages"]:
     print(message.content)
 
 # Write results to index.html with enhanced styling
-with open('index.html', 'w') as f:
+with open(os.path.join(RootDirectory.path,'index.html'), 'w') as f:
     f.write('''
 <html>
 <head>
