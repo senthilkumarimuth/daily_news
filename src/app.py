@@ -11,6 +11,7 @@ import time
 import sys
 import requests
 from custom_dirs import RootDirectory
+from custom_utils.gnews_headlines import get_news_from_gnews
 
 # Load environment variables
 load_dotenv()
@@ -72,9 +73,11 @@ try:
         
         # Search for latest news
         search_results = search_tool.run("latest news headlines today in india and chennai")
-        print(search_results)
+        gnews_headlines = get_news_from_gnews()
+        news = search_results + gnews_headlines
+        print(news)
         # Have the model summarize the search results
-        prompt = f"Please summarize these news headlines in a concise format, with each headline on a new line: {search_results}"
+        prompt = f"Please summarize these news headlines in a concise format, with each headline on a new line: {news}"
         response = model.invoke(prompt)
         
         messages.append(HumanMessage(content=response))
