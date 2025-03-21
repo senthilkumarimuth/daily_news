@@ -102,10 +102,11 @@ try:
         print(message.content)
 
     # Write results to index.html with enhanced styling
-    with open(os.path.join(RootDirectory.path,'index.html'), 'w') as f:
+    with open(os.path.join(RootDirectory.path,'index.html'), 'w', encoding='utf-8') as f:
         f.write('''
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Latest News</title>
     <style>
         body {
