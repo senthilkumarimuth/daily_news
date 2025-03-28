@@ -1,8 +1,13 @@
 import requests
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
 
 def get_news_from_gnews():
     # Replace with your GNews API key
-    api_key = '096d43cec18d84451acfe3fd899bb1c4'
+    api_key = os.getenv('gnews_api_key')
     max_ = 3
     url = f'https://gnews.io/api/v4/top-headlines?token={api_key}&country=in&lang=en&max={max_}'
 
