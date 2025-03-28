@@ -72,9 +72,10 @@ try:
         messages = state["messages"]
         
         # Search for latest news
-        search_results = search_tool.run("latest news headlines today in india and chennai")
+        search_results = search_tool.run("latest news headlines today in chennai, tamilnadu, india")
         gnews_headlines = get_news_from_gnews()
-        news = search_results + gnews_headlines
+        search_results_ai = search_tool.run("latest news headlines today related to Artificial Intelligence")
+        news = search_results + gnews_headlines + search_results_ai
         print(news)
         # Have the model summarize the search results
         prompt = f"Please summarize these news headlines in a concise format, with each headline on a new line: {news}"
