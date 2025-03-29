@@ -10,6 +10,9 @@ import subprocess
 import time
 import sys
 import requests
+import json
+from datetime import datetime
+from jinja2 import Environment, FileSystemLoader
 from custom_dirs import RootDirectory
 from custom_utils.gnews_headlines import get_news_from_gnews
 from custom_utils.serpapi_utils import get_news_from_serpapi
@@ -94,8 +97,12 @@ try:
         print("Fetching AI news...")
         search_results_ai = get_news_from_serpapi("latest news headlines today related to Artificial Intelligence")
         print("AI news received")
+
+        print("Fetching AI news...")
+        search_results_share_market = get_news_from_serpapi("latest news about indian share market")
+        print("hare_market news received")
         
-        news = search_results + gnews_headlines + search_results_ai
+        news = search_results + gnews_headlines + search_results_ai + str(search_results_share_market)
         print("Combining all news sources...")
         print(news)
         
@@ -126,68 +133,27 @@ try:
     for message in result["messages"]:
         print(message.content)
 
-    # Write results to index.html with enhanced styling
-    with open(os.path.join(RootDirectory.path,'index.html'), 'w', encoding='utf-8') as f:
-        f.write('''
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Latest News</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        h1 {
-            color: #2c3e50;
-            text-align: center;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
-        }
-        p {
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            line-height: 1.6;
-        }
-        p:nth-child(1) {
-            background: #e8f4f8;
-            font-size: 1.2em;
-            font-weight: bold;
-        }
-        p:nth-child(2n) {
-            background: #fff3e6;
-        }
-        p:nth-child(2n+3) {
-            background: #e6ffe6;
-        }
-        .timestamp {
-            color: #7f8c8d;
-            font-size: 0.8em;
-            text-align: right;
-            background: white !important;
-        }
-    </style>
-</head>
-<body>
-    <h1>Latest News Headlines</h1>
-''')
-        
-        from datetime import datetime
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        
-        for message in result["messages"]:
-            # Split content by newlines and create paragraph for each line
-            for line in message.content.split('\n'):
-                if line.strip():  # Only create paragraph for non-empty lines
-                    f.write(f'    <p>{line.strip()}</p>\n')
-        
-        f.write(f'    <p class="timestamp">Last updated: {current_time}</p>\n')
-        f.write('</body>\n</html>')
+    # Process news lines
+    news_lines = []
+    for message in result["messages"]:
+        for line in message.content.split('\n'):
+            if line.strip():  # Only include non-empty lines
+                news_lines.append(line.strip())
+
+    # Create data directory if it doesn't exist
+    data_dir = os.path.join(RootDirectory.path, 'data')
+    os.makedirs(data_dir, exist_ok=True)
+
+    # Prepare data for JSON
+    news_data = {
+        'news_lines': news_lines,
+        'timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    }
+
+    # Write data to JSON file
+    json_path = os.path.join(data_dir, 'news_data.json')
+    with open(json_path, 'w', encoding='utf-8') as f:
+        json.dump(news_data, f, indent=2, ensure_ascii=False)
 
 finally:
     # Shutdown Ollama if we started it

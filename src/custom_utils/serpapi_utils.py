@@ -27,6 +27,7 @@ def get_news_from_serpapi(query: str) -> str:
     
 
 if __name__ == "__main__":
-    print(get_news_from_serpapi("latest news headlines today in india and chennai"))
-    print(get_news_from_serpapi("latest news headlines today related to Artificial Intelligence"))
+    #print(get_news_from_serpapi("latest news headlines today in india and chennai"))
+    #print(get_news_from_serpapi("latest news headlines today related to Artificial Intelligence"))
+    print(get_news_from_serpapi("latest news about share market"))
 

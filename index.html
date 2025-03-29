@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -41,24 +41,46 @@
             text-align: right;
             background: white !important;
         }
+        #loading {
+            text-align: center;
+            padding: 20px;
+            font-style: italic;
+        }
     </style>
 </head>
 <body>
     <h1>Latest News Headlines</h1>
-    <p>Here are the news headlines summarized in a concise format:</p>
-    <p>* Four people arrested for possession of drug tablets in Chennai.</p>
-    <p>* Tamil Nadu Chief Minister invites investment in state's green economy.</p>
-    <p>* A 14-year-old boy dies after altercation on school bus in Chennai.</p>
-    <p>* Two Madras High Court judges visit prison in Chennai, while an SUV and gold are seized from a university student accused of sexual assault.</p>
-    <p>* Chain-snatching suspect shot dead by police in Chennai.</p>
-    <p>* US President Donald Trump meets with India's Prime Minister Narendra Modi to discuss trade talks.</p>
-    <p>* Over 150 people killed and hundreds injured in earthquakes in Myanmar and Bangkok.</p>
-    <p>* Russian President Putin says Russia will not interfere in Trump's plan to buy Greenland.</p>
-    <p>And here are the technology/AI news headlines:</p>
-    <p>* A new AI model can represent and generate human-like goals by learning from game development.</p>
-    <p>* Researchers develop an AI tool that could speed up coeliac disease diagnosis.</p>
-    <p>* OpenAI removes safeguards on image creation for ChatGPT.</p>
-    <p>* Chinese AI startup DeepSeek releases major upgrade to its language model, intensifying competition with US tech leaders.</p>
-    <p class="timestamp">Last updated: 2025-03-29 08:12:38</p>
+    <div id="loading">Loading news...</div>
+
+    <script>
+        async function loadNews() {
+            try {
+                const response = await fetch('data/news_data.json');
+                const data = await response.json();
+                
+                const newsContainer = document.getElementById('loading');
+                newsContainer.innerHTML = ''; // Clear loading message
+                
+                // Add news lines
+                data.news_lines.forEach(line => {
+                    const p = document.createElement('p');
+                    p.textContent = line;
+                    newsContainer.appendChild(p);
+                });
+                
+                // Add timestamp
+                const timestamp = document.createElement('p');
+                timestamp.className = 'timestamp';
+                timestamp.textContent = `Last updated: ${data.timestamp}`;
+                newsContainer.appendChild(timestamp);
+            } catch (error) {
+                console.error('Error loading news:', error);
+                document.getElementById('loading').innerHTML = 'Error loading news. Please try again later.';
+            }
+        }
+
+        // Load news when page loads
+        document.addEventListener('DOMContentLoaded', loadNews);
+    </script>
 </body>
-</html>
+</html> 
