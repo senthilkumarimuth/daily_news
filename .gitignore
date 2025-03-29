@@ -172,3 +172,6 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# ignore g_search.py
+src/custom_utils/g_search.py
