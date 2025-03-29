@@ -12,6 +12,7 @@ import sys
 import requests
 from custom_dirs import RootDirectory
 from custom_utils.gnews_headlines import get_news_from_gnews
+from custom_utils.serpapi_utils import get_news_from_serpapi
 
 # Load environment variables
 load_dotenv()
@@ -61,25 +62,48 @@ try:
         next: str
 
     # Initialize Ollama model and search tool
-    model = OllamaLLM(model="llama3.1", base_url="http://localhost:11434")
-    search_tool = SerpAPIWrapper(serpapi_api_key=os.getenv('serp_api_key'), search_engine="google_news") # Configure SerpAPI to use Google News
+    try:
+        print("Initializing Ollama model...")
+        model = OllamaLLM(model="llama3.1", base_url="http://localhost:11434", timeout=300)
+        print("Model initialized successfully")
+    except Exception as e:
+        print(f"Error initializing model: {str(e)}")
+        sys.exit(1)
+
+    print("Initializing search tool...")
+    search_tool = SerpAPIWrapper(serpapi_api_key=os.getenv('serp_api_key'), search_engine="google_news")
+    print("Search tool initialized successfully")
 
     # Create workflow graph
+    print("Creating workflow graph...")
     workflow = StateGraph(AgentState)
 
     # Define news fetching function
     def get_news(state: AgentState) -> AgentState:
         messages = state["messages"]
         
+        print("Fetching news from search tool...")
         # Search for latest news
-        search_results = search_tool.run("latest news headlines today in chennai, tamilnadu, india")
+        search_results = get_news_from_serpapi("latest news headlines today in india and chennai")
+        print("Search results received")
+        
+        print("Fetching news from gnews...")
         gnews_headlines = get_news_from_gnews()
-        search_results_ai = search_tool.run("latest news headlines today related to Artificial Intelligence")
+        print("Gnews headlines received")
+        
+        print("Fetching AI news...")
+        search_results_ai = get_news_from_serpapi("latest news headlines today related to Artificial Intelligence")
+        print("AI news received")
+        
         news = search_results + gnews_headlines + search_results_ai
+        print("Combining all news sources...")
         print(news)
+        
+        print("Generating summary with model...")
         # Have the model summarize the search results
         prompt = f"Please summarize these news headlines in a concise format, with each headline on a new line: {news}"
         response = model.invoke(prompt)
+        print("Summary generated successfully")
         
         messages.append(HumanMessage(content=response))
         return {"messages": messages, "next": "end"}

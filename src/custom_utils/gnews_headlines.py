@@ -29,3 +29,6 @@ def get_news_from_gnews():
         return ""
 
 
+if __name__ == "__main__":
+    print(get_news_from_gnews())
+
