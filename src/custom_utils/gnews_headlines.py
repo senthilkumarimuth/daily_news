@@ -1,6 +1,7 @@
 import requests
 from dotenv import load_dotenv
 import os
+import unicodedata
 
 load_dotenv()
 
@@ -21,7 +22,11 @@ def get_news_from_gnews():
             headlines = data['articles']
             news = ''
             for article in headlines:
-                news = news + f"{article['title']}. "
+                # Normalize the text to handle special characters
+                title = unicodedata.normalize('NFKC', article['title'])
+                # Replace any problematic characters with their ASCII equivalents
+                title = ''.join(c for c in title if unicodedata.category(c)[0] != 'C')
+                news = news + f"{title}. "
             return news
         return ""
     except Exception as e:
