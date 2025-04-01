@@ -24,7 +24,7 @@ try:
     # Initialize Ollama model and search tool
     try:
         print("Initializing Ollama model...")
-        model = OllamaLLM(model="gemma3:1b", base_url="http://localhost:11434", timeout=300)
+        model = OllamaLLM(model="llama3.2:1b", base_url="http://localhost:11434", timeout=300)
         print("Model initialized successfully")
     except Exception as e:
         print(f"Error initializing model: {str(e)}")
