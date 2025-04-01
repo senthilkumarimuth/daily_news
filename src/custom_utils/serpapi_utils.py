@@ -20,7 +20,10 @@ def get_news_from_serpapi(query: str) -> str:
             serpapi_api_key=os.getenv('serp_api_key'),
             search_engine="google_news"
         )
-        return search_tool.run(query)
+        results = search_tool.run(query)
+        if type(results) == list:
+            results = "\n".join( dic['title'] for dic in results)
+        return results
     except Exception as e:
         print(f"Error fetching news from SerpAPI: {str(e)}")
         return "" 
@@ -29,5 +32,4 @@ def get_news_from_serpapi(query: str) -> str:
 if __name__ == "__main__":
     #print(get_news_from_serpapi("latest news headlines today in india and chennai"))
     #print(get_news_from_serpapi("latest news headlines today related to Artificial Intelligence"))
-    print(get_news_from_serpapi("latest news about regarding share market"))
-
+    print(get_news_from_serpapi("latest news headlines today related to Artificial Intelligence"))

@@ -17,29 +17,22 @@
             border-bottom: 2px solid #3498db;
             padding-bottom: 10px;
         }
-        p {
-            padding: 15px;
-            margin: 10px 0;
+        .news-item {
+            padding: 12px;
+            margin: 8px 0;
             border-radius: 5px;
+            background: white;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            line-height: 1.6;
-        }
-        p:nth-child(1) {
-            background: #e8f4f8;
-            font-size: 1.2em;
-            font-weight: bold;
-        }
-        p:nth-child(2n) {
-            background: #fff3e6;
-        }
-        p:nth-child(2n+3) {
-            background: #e6ffe6;
+            border-left: 4px solid #3498db;
         }
         .timestamp {
             color: #7f8c8d;
             font-size: 0.8em;
             text-align: right;
-            background: white !important;
+            margin-top: 20px;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
         }
         #loading {
             text-align: center;
@@ -61,15 +54,16 @@
                 const newsContainer = document.getElementById('loading');
                 newsContainer.innerHTML = ''; // Clear loading message
                 
-                // Add news lines
-                data.news_lines.forEach(line => {
-                    const p = document.createElement('p');
-                    p.textContent = line;
-                    newsContainer.appendChild(p);
+                // Add news items
+                data.news_items.forEach(item => {
+                    const newsItem = document.createElement('div');
+                    newsItem.className = 'news-item';
+                    newsItem.textContent = item.content;
+                    newsContainer.appendChild(newsItem);
                 });
                 
                 // Add timestamp
-                const timestamp = document.createElement('p');
+                const timestamp = document.createElement('div');
                 timestamp.className = 'timestamp';
                 timestamp.textContent = `Last updated: ${data.timestamp}`;
                 newsContainer.appendChild(timestamp);

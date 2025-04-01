@@ -1,21 +1,113 @@
 {
-  "news_lines": [
-    "Here are the news headlines in a concise format, with each headline on a new line:",
-    "• BJP may name Tamil Nadu unit chief next week; Nainar Nagenthran, L Murugan among probables",
-    "• 43-year-old advocate found dead with injuries",
-    "• Chennai women take the wheel in empowerment rally",
-    "• Online weekend Japanese course to begin on April 5",
-    "• Tamil Nadu teen dies after altercation on school bus; police launch probe",
-    "• Chennai News",
-    "• Southern Railway Sets Up Helplines As Bengaluru-Kamakhya Express Derails In Odisha",
-    "• SU Arun Kumar On Why Dhileep Never Appears In Veera",
-    "• Kathua attacks: Combing operation underway after gunfire between hiding terrorists, security forces",
-    "• Assam CM Himanta slams Muhammad Yunus's 'offensive' remarks",
-    "• Breaking News in India: Read Latest News on Sports, Business, Entertainment, Blogs and Opinions from leading columnists. Times of India brings the Breaking ...",
-    "• Vivo V50e Teased to Launch in India Soon; Colour Options, Key Specifications Confirmed.",
-    "• SoftBank Group Agrees to Lead $40 Billion Funding for OpenAI",
-    "• Alphabet-Backed Isomorphic Labs Raises $30 Million In Series A Funding For Image Recognition Technology",
-    "• Sensex crashes 1,300 points: Trump tariffs among 5 key factors dragging Indian stock market lower."
+  "news_items": [
+    {
+      "content": "Here is the rewritten news in a clear format:",
+      "timestamp": "2025-04-01 15:37:11"
+    },
+    {
+      "content": "**Related Questions**",
+      "timestamp": "2025-04-01 15:37:11"
+    },
+    {
+      "content": "* The BJP may name Tamil Nadu unit chief next week; Nainar Nagenthran, L Murugan among probable candidates.",
+      "timestamp": "2025-04-01 15:37:11"
+    },
+    {
+      "content": "* A 43-year-old advocate found dead with injuries; police launch investigation after conflicting accounts.",
+      "timestamp": "2025-04-01 15:37:11"
+    },
+    {
+      "content": "**Local News**",
+      "timestamp": "2025-04-01 15:37:11"
+    },
+    {
+      "content": "* A Tamil Nadu teen dies after an altercation on the school bus; police probe ongoing.",
+      "timestamp": "2025-04-01 15:37:11"
+    },
+    {
+      "content": "* Chennai news: Madras High Court judges visit prison in Chennai and issue surprise visit to a prisoner accused of sexual assault.",
+      "timestamp": "2025-04-01 15:37:11"
+    },
+    {
+      "content": "* Blood on MK Stalin's hands sparks political row; 100 gold pieces, SUV seized from Anna University student.",
+      "timestamp": "2025-04-01 15:37:11"
+    },
+    {
+      "content": "**International News**",
+      "timestamp": "2025-04-01 15:37:11"
+    },
+    {
+      "content": "* Myanmar earthquake death toll rises to 2,056; international organizations express concern.",
+      "timestamp": "2025-04-01 15:37:11"
+    },
+    {
+      "content": "* Breaking News: Fire breaks out at hospital in east Delhi; no one injured.",
+      "timestamp": "2025-04-01 15:37:11"
+    },
+    {
+      "content": "* Trump tariffs drag down Indian stock market; Nifty below 23,200.",
+      "timestamp": "2025-04-01 15:37:11"
+    },
+    {
+      "content": "**Health and Science**",
+      "timestamp": "2025-04-01 15:37:11"
+    },
+    {
+      "content": "* Gennova Biopharmaceuticals secures $13.38 million funding to develop Nipah virus vaccine.",
+      "timestamp": "2025-04-01 15:37:11"
+    },
+    {
+      "content": "* SoftBank Group agrees to fund AI research project for OpenAI; Alphabet-backed company raises $600 million for AI drug development.",
+      "timestamp": "2025-04-01 15:37:11"
+    },
+    {
+      "content": "* AMD closes $4.9 billion deal with investors.",
+      "timestamp": "2025-04-01 15:37:11"
+    },
+    {
+      "content": "**Technology**",
+      "timestamp": "2025-04-01 15:37:11"
+    },
+    {
+      "content": "* Vivo V50e Teased to Launch in India Soon: New smartphone features and color options confirmed.",
+      "timestamp": "2025-04-01 15:37:11"
+    },
+    {
+      "content": "* ServiceNow deploys AI agents to boost enterprise workflows.",
+      "timestamp": "2025-04-01 15:37:11"
+    },
+    {
+      "content": "* Applications; Industries",
+      "timestamp": "2025-04-01 15:37:11"
+    },
+    {
+      "content": "**ChatGPT and AI**",
+      "timestamp": "2025-04-01 15:37:11"
+    },
+    {
+      "content": "* Man files complaint after ChatGPT falsely claims he murdered his children.",
+      "timestamp": "2025-04-01 15:37:11"
+    },
+    {
+      "content": "* A.I. chatbots becoming popular but worry privacy advocates; latest news on this topic.",
+      "timestamp": "2025-04-01 15:37:11"
+    },
+    {
+      "content": "**Other News**",
+      "timestamp": "2025-04-01 15:37:11"
+    },
+    {
+      "content": "* New A.I. project explores mysteries of Delacroix, master of Romanticism; Eric and Wendy Schmidt and the Sorbonne fund a new program to digitize his work.",
+      "timestamp": "2025-04-01 15:37:11"
+    },
+    {
+      "content": "* OpenAI raises $40 billion in record-breaking deal with SoftBank; AI is a tool that can sharpen storytelling.",
+      "timestamp": "2025-04-01 15:37:11"
+    },
+    {
+      "content": "* Sam Altman says OpenAI will release an 'Open Weight' AI model this summer; Amazon's AGI Lab reveals its first work: Advanced AI agents.",
+      "timestamp": "2025-04-01 15:37:11"
+    }
   ],
-  "timestamp": "2025-04-01 14:14:04"
+  "timestamp": "2025-04-01 15:37:11"
 }

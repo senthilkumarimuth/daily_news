@@ -65,7 +65,14 @@ try:
         
         print("Generating summary with model...")
         # Have the model summarize the search results
-        prompt = f"Please summarize these news headlines in a concise format, with each headline on a new line: {news}"
+        prompt = f"""Please rewrite the news in a clear format:
+        {news}
+
+        Requirements:
+        Keep all original information intact
+        Use clear, concise language
+        Exclude duplicate news items
+        """
         response = model.invoke(prompt)
         print("Summary generated successfully")
         
@@ -91,10 +98,26 @@ try:
 
     # Process news lines
     news_lines = []
+    
     for message in result["messages"]:
         for line in message.content.split('\n'):
-            if line.strip():  # Only include non-empty lines
-                news_lines.append(line.strip())
+            line = line.strip()
+            if not line:
+                continue
+                
+            # Process bullet points
+            if line.startswith('•'):
+                line = line[1:].strip()  # Remove bullet point
+                news_lines.append({
+                    'content': line,
+                    'timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                })
+            else:
+                # Handle non-bullet point lines
+                news_lines.append({
+                    'content': line,
+                    'timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                })
 
     # Create data directory if it doesn't exist
     data_dir = os.path.join(RootDirectory.path, 'data')
@@ -102,7 +125,7 @@ try:
 
     # Prepare data for JSON
     news_data = {
-        'news_lines': news_lines,
+        'news_items': news_lines,
         'timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     }
 
