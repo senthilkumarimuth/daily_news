@@ -65,13 +65,14 @@ try:
         
         print("Generating summary with model...")
         # Have the model summarize the search results
-        prompt = f"""Please rewrite the news in a clear format:
+        prompt = f"""Please rewrite the news:
+        
         {news}
 
         Requirements:
         Keep all original information intact
         Use clear, concise language
-        Exclude duplicate news items
+        remove duplicate news items
         """
         response = model.invoke(prompt)
         print("Summary generated successfully")
